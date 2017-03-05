@@ -1,10 +1,14 @@
+import os
+import json
 import requests
 import re
 import string
 from flask import Flask, request, Response
+import random
+import time
 from textblob import TextBlob
-my_bot_name = 'gu_bot'  # e.g. zac_bot
-my_slack_username = 'xgu10'  # e.g. zac.wentzell
+my_bot_name = 'gu_bot' 
+my_slack_username = 'xgu10'
 IP_Adrees = '52.36.225.157'
 
 app = Flask(__name__)
@@ -18,6 +22,8 @@ slack_inbound_url = 'https://hooks.slack.com/services/T3S93LZK6/B3Y34B94M/fExqXz
 # this handles POST requests sent to your server at SERVERIP:41953/slack
 @app.route('/slack', methods=['POST'])
 def inbound():
+    delay = random.uniform(0, 10)
+    time.sleep(delay)
 
 
     print '========POST REQUEST @ /slack========='
@@ -106,12 +112,12 @@ def inbound():
                 title = []
                 link = []
                 footer = []
-                time = []
+                tm = []
                 for item in result['items'][0:5]:
                     title.append(item['title'])
                     link.append(item['link'])
                     footer.append(item['answer_count'])
-                    time.append(item['creation_date'])
+                    tm.append(item['creation_date'])
 
 
                 response={
@@ -121,19 +127,19 @@ def inbound():
                 {"title":title[0],
                  "title_link":link[0],
                  "footer":footer[0],
-                 "ts":time[0]},{"title":title[1],
+                 "ts":tm[0]},{"title":title[1],
                  "title_link":link[1],
                  "footer":footer[1],
-                 "ts":time[1]},{"title":title[2],
+                 "ts":tm[1]},{"title":title[2],
                  "title_link":link[2],
                  "footer":footer[2],
-                 "ts":time[2]},{"title":title[3],
+                 "ts":tm[2]},{"title":title[3],
                  "title_link":link[3],
                  "footer":footer[3],
-                 "ts":time[3]},{"title":title[4],
+                 "ts":tm[3]},{"title":title[4],
                  "title_link":link[4],
                  "footer":footer[4],
-                 "ts":time[4]}
+                 "ts":tm[4]}
                 ]}
                 r = requests.post(slack_inbound_url, json=response)
 
@@ -148,12 +154,12 @@ def inbound():
                 title = []
                 link = []
                 footer = []
-                time = []
+                tm = []
                 for item in result['items'][0:5]:
                     title.append(item['title'])
                     link.append(item['link'])
                     footer.append(item['answer_count'])
-                    time.append(item['creation_date'])
+                    tm.append(item['creation_date'])
 
 
                 response={
@@ -163,19 +169,19 @@ def inbound():
                 {"title":title[0],
                  "title_link":link[0],
                  "footer":footer[0],
-                 "ts":time[0]},{"title":title[1],
+                 "ts":tm[0]},{"title":title[1],
                  "title_link":link[1],
                  "footer":footer[1],
-                 "ts":time[1]},{"title":title[2],
+                 "ts":tm[1]},{"title":title[2],
                  "title_link":link[2],
                  "footer":footer[2],
-                 "ts":time[2]},{"title":title[3],
+                 "ts":tm[2]},{"title":title[3],
                  "title_link":link[3],
                  "footer":footer[3],
-                 "ts":time[3]},{"title":title[4],
+                 "ts":tm[3]},{"title":title[4],
                  "title_link":link[4],
                  "footer":footer[4],
-                 "ts":time[4]}
+                 "ts":tm[4]}
                 ]}
                 r = requests.post(slack_inbound_url, json=response)
 
